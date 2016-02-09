@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ContentDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="PKCategoryId" />
+          </Key>
+          <Property Name="PKCategoryId" Type="int" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stories">
+          <Key>
+            <PropertyRef Name="PKStoryId" />
+          </Key>
+          <Property Name="PKStoryId" Type="int" Nullable="false" />
+          <Property Name="FKCategoryId" Type="int" />
+          <Property Name="FKWriterId" Type="int" />
+          <Property Name="Body" Type="varchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Writer">
+          <Key>
+            <PropertyRef Name="PKWriterId" />
+          </Key>
+          <Property Name="PKWriterId" Type="int" Nullable="false" />
+          <Property Name="WriterName" Type="varchar" MaxLength="100" />
+          <Property Name="Daily" Type="bit" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WriterTemplate">
+          <Key>
+            <PropertyRef Name="PKTemplateId" />
+          </Key>
+          <Property Name="PKTemplateId" Type="int" Nullable="false" />
+          <Property Name="FKWriterId" Type="int" />
+          <Property Name="TemplateBody" Type="varbinary(max)" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ContentDBModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stories" EntityType="Self.Stories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Writer" EntityType="Self.Writer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WriterTemplate" EntityType="Self.WriterTemplate" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ContentDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="PKCategoryId" />
+          </Key>
+          <Property Name="PKCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stories">
+          <Key>
+            <PropertyRef Name="PKStoryId" />
+          </Key>
+          <Property Name="PKStoryId" Type="Int32" Nullable="false" />
+          <Property Name="FKCategoryId" Type="Int32" />
+          <Property Name="FKWriterId" Type="Int32" />
+          <Property Name="Body" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Writer">
+          <Key>
+            <PropertyRef Name="PKWriterId" />
+          </Key>
+          <Property Name="PKWriterId" Type="Int32" Nullable="false" />
+          <Property Name="WriterName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Daily" Type="Boolean" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WriterTemplate">
+          <Key>
+            <PropertyRef Name="PKTemplateId" />
+          </Key>
+          <Property Name="PKTemplateId" Type="Int32" Nullable="false" />
+          <Property Name="FKWriterId" Type="Int32" />
+          <Property Name="TemplateBody" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ContentDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Stories1" EntityType="ContentDBModel.Stories" />
+          <EntitySet Name="Writers" EntityType="Self.Writer" />
+          <EntitySet Name="WriterTemplates" EntityType="Self.WriterTemplate" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ContentDBModelStoreContainer" CdmEntityContainer="ContentDBEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ContentDBModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="PKCategoryId" ColumnName="PKCategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stories1">
+            <EntityTypeMapping TypeName="ContentDBModel.Stories">
+              <MappingFragment StoreEntitySet="Stories">
+                <ScalarProperty Name="PKStoryId" ColumnName="PKStoryId" />
+                <ScalarProperty Name="FKCategoryId" ColumnName="FKCategoryId" />
+                <ScalarProperty Name="FKWriterId" ColumnName="FKWriterId" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Writers">
+            <EntityTypeMapping TypeName="ContentDBModel.Writer">
+              <MappingFragment StoreEntitySet="Writer">
+                <ScalarProperty Name="PKWriterId" ColumnName="PKWriterId" />
+                <ScalarProperty Name="WriterName" ColumnName="WriterName" />
+                <ScalarProperty Name="Daily" ColumnName="Daily" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WriterTemplates">
+            <EntityTypeMapping TypeName="ContentDBModel.WriterTemplate">
+              <MappingFragment StoreEntitySet="WriterTemplate">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="PKTemplateId" ColumnName="PKTemplateId" />
+                <ScalarProperty Name="FKWriterId" ColumnName="FKWriterId" />
+                <ScalarProperty Name="TemplateBody" ColumnName="TemplateBody" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

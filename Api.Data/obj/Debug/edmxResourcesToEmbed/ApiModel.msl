@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ContentDBModelStoreContainer" CdmEntityContainer="ContentDBEntities">
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="ContentDBModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="PKCategoryId" ColumnName="PKCategoryId" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stories1">
+      <EntityTypeMapping TypeName="ContentDBModel.Stories">
+        <MappingFragment StoreEntitySet="Stories">
+          <ScalarProperty Name="PKStoryId" ColumnName="PKStoryId" />
+          <ScalarProperty Name="FKCategoryId" ColumnName="FKCategoryId" />
+          <ScalarProperty Name="FKWriterId" ColumnName="FKWriterId" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Writers">
+      <EntityTypeMapping TypeName="ContentDBModel.Writer">
+        <MappingFragment StoreEntitySet="Writer">
+          <ScalarProperty Name="PKWriterId" ColumnName="PKWriterId" />
+          <ScalarProperty Name="WriterName" ColumnName="WriterName" />
+          <ScalarProperty Name="Daily" ColumnName="Daily" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WriterTemplates">
+      <EntityTypeMapping TypeName="ContentDBModel.WriterTemplate">
+        <MappingFragment StoreEntitySet="WriterTemplate">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="PKTemplateId" ColumnName="PKTemplateId" />
+          <ScalarProperty Name="FKWriterId" ColumnName="FKWriterId" />
+          <ScalarProperty Name="TemplateBody" ColumnName="TemplateBody" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
